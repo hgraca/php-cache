@@ -13,4 +13,5 @@ composer require hgraca/cache
 ```
 
 ## Todo
-- Create a CacheItem class to use in the PhpFileCache, instead of accessing the array directly
+- use hgraca\file-system
+- use hgraca\lock

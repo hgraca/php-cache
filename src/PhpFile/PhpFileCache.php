@@ -3,6 +3,8 @@ namespace Hgraca\Cache\PhpFile;
 
 use Hgraca\Cache\CacheInterface;
 use Hgraca\Cache\Exception\CacheItemNotFoundException;
+use Hgraca\Cache\PhpFile\Adapter\FileSystem\FileSystemAdapter;
+use Hgraca\Cache\PhpFile\Port\FileSystem\FileSystemInterface;
 use InvalidArgumentException;
 
 final class PhpFileCache implements CacheInterface
@@ -38,14 +40,21 @@ final class PhpFileCache implements CacheInterface
     /** @var bool */
     private $persistent;
 
+    /**
+     * @var FileSystemInterface
+     */
+    private $fileSystem;
+
     public function __construct(
         string $cacheFileName,
         int $mode = self::MODE_VAR_EXPORT,
-        bool $persistent = self::TYPE_PERSISTENT
+        bool $persistent = self::TYPE_PERSISTENT,
+        FileSystemInterface $fileSystem = null
     ) {
         $this->cacheFilePath = $cacheFileName;
         $this->mode          = $mode;
         $this->persistent    = $persistent;
+        $this->fileSystem = $fileSystem ?? new FileSystemAdapter();
 
         $this->cache = $this->unpack();
     }
@@ -118,8 +127,8 @@ final class PhpFileCache implements CacheInterface
         return [
             static::STATS_HITS             => $this->hits,
             static::STATS_MISSES           => $this->misses,
-            static::STATS_UPTIME           => file_exists($this->cacheFilePath)
-                ? filectime($this->cacheFilePath) - time()
+            static::STATS_UPTIME           => $this->fileSystem->fileExists($this->cacheFilePath)
+                ? $this->fileSystem->getFileCreationTimestamp($this->cacheFilePath) - time()
                 : 0,
             static::STATS_MEMORY_USAGE     => memory_get_usage(),
             static::STATS_MEMORY_AVAILABLE => ini_get('memory_limit') - memory_get_usage(),
@@ -140,13 +149,13 @@ final class PhpFileCache implements CacheInterface
 
         switch ($this->mode) {
             case self::MODE_VAR_EXPORT:
-                file_put_contents(
+                $this->fileSystem->writeFile(
                     $this->cacheFilePath,
                     '<?php $array = ' . var_export($this->toArray(), true) . ';'
                 );
                 break;
             case self::MODE_SERIALIZER:
-                file_put_contents($this->cacheFilePath, serialize($this->toArray()));
+                $this->fileSystem->writeFile($this->cacheFilePath, serialize($this->toArray()));
                 break;
             default:
                 throw new InvalidArgumentException('Serialization mode unknown: ' . $this->mode);
@@ -155,7 +164,7 @@ final class PhpFileCache implements CacheInterface
 
     private function unpack(): array
     {
-        if (! $this->persistent || ! file_exists($this->cacheFilePath)) {
+        if (! $this->persistent || ! $this->fileSystem->fileExists($this->cacheFilePath)) {
             return [];
         }
 
@@ -169,7 +178,7 @@ final class PhpFileCache implements CacheInterface
 
             case self::MODE_SERIALIZER:
 
-                return unserialize(file_get_contents($this->cacheFilePath));
+                return unserialize($this->fileSystem->readFile($this->cacheFilePath));
 
             default:
 

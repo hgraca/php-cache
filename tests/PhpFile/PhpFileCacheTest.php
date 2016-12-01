@@ -3,7 +3,11 @@ namespace Hgraca\Cache\Test\PhpFile;
 
 use Hgraca\Cache\CacheInterface;
 use Hgraca\Cache\Exception\CacheItemNotFoundException;
+use Hgraca\Cache\PhpFile\Adapter\FileSystem\FileSystemAdapter;
 use Hgraca\Cache\PhpFile\PhpFileCache;
+use Hgraca\Cache\PhpFile\Port\FileSystem\FileSystemInterface;
+use Hgraca\FileSystem\FileSystemAbstract;
+use Hgraca\FileSystem\LocalFileSystem;
 use PHPUnit_Framework_TestCase;
 
 final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
@@ -220,7 +224,8 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
         return new PhpFileCache(
             $this->cacheFilePath,
             PhpFileCache::MODE_VAR_EXPORT,
-            PhpFileCache::TYPE_PERSISTENT
+            PhpFileCache::TYPE_PERSISTENT,
+            $this->createFileSystem()
         );
     }
 
@@ -229,7 +234,8 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
         return new PhpFileCache(
             $this->cacheFilePath,
             PhpFileCache::MODE_SERIALIZER,
-            PhpFileCache::TYPE_PERSISTENT
+            PhpFileCache::TYPE_PERSISTENT,
+            $this->createFileSystem()
         );
     }
 
@@ -238,7 +244,8 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
         return new PhpFileCache(
             $this->cacheFilePath,
             3,
-            PhpFileCache::TYPE_PERSISTENT
+            PhpFileCache::TYPE_PERSISTENT,
+            $this->createFileSystem()
         );
     }
 
@@ -247,7 +254,13 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
         return new PhpFileCache(
             $this->cacheFilePath,
             PhpFileCache::MODE_VAR_EXPORT,
-            PhpFileCache::TYPE_NOT_PERSISTENT
+            PhpFileCache::TYPE_NOT_PERSISTENT,
+            $this->createFileSystem()
         );
+    }
+
+    private function createFileSystem(): FileSystemInterface
+    {
+        return new FileSystemAdapter(new LocalFileSystem(FileSystemAbstract::IDEMPOTENT));
     }
 }

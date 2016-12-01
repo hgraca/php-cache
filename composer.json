@@ -21,7 +21,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "hgraca/file-system": "~1",
+        "hgraca/file-system": "^1.2",
         "hgraca/lock": "~1"
     },
     "require-dev": {

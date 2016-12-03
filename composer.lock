@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "753addf6ef0dfc32d6902965e3902b4e",
-    "content-hash": "d2b9881259973f6af9e46f619a44582c",
+    "hash": "0021f55a507a7b7717e1584cda44c8d3",
+    "content-hash": "dd6bb8fa5261a4eb9c577f7e4d2d8cd8",
     "packages": [
         {
             "name": "hgraca/file-system",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hgraca/php-file-system.git",
-                "reference": "04bf5a7c52d0510d0d91c114c8ce9ded958b1f9b"
+                "reference": "42b9497fc27c388a9261c15863ee54f16db5e7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hgraca/php-file-system/zipball/04bf5a7c52d0510d0d91c114c8ce9ded958b1f9b",
-                "reference": "04bf5a7c52d0510d0d91c114c8ce9ded958b1f9b",
+                "url": "https://api.github.com/repos/hgraca/php-file-system/zipball/42b9497fc27c388a9261c15863ee54f16db5e7ef",
+                "reference": "42b9497fc27c388a9261c15863ee54f16db5e7ef",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 }
             ],
             "description": "A generic PHP library that wraps file system calls.",
-            "time": "2016-12-01 20:42:07"
+            "time": "2016-12-03 12:39:45"
         },
         {
             "name": "hgraca/helper",
@@ -97,53 +97,6 @@
             ],
             "description": "A generic PHP lib with static classes full of handy functional methods.",
             "time": "2016-11-20 21:19:08"
-        },
-        {
-            "name": "hgraca/lock",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hgraca/php-lock.git",
-                "reference": "1a233e17023d0dc5b5e82946c98843a80421fe53"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hgraca/php-lock/zipball/1a233e17023d0dc5b5e82946c98843a80421fe53",
-                "reference": "1a233e17023d0dc5b5e82946c98843a80421fe53",
-                "shasum": ""
-            },
-            "require": {
-                "hgraca/file-system": "~1",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9",
-                "phpunit/php-code-coverage": "~3",
-                "phpunit/phpunit": "~5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hgraca\\Lock\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Herberto Graca",
-                    "email": "herberto.graca@gmail.com"
-                }
-            ],
-            "description": "A generic PHP library to control concurrent access to resources.",
-            "time": "2016-11-27 16:47:37"
         }
     ],
     "packages-dev": [

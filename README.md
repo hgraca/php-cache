@@ -1,4 +1,4 @@
-# Lock library
+# Hgraca\Cache
 [![Build Status](https://travis-ci.org/hgraca/php-cache.svg?branch=master)](https://travis-ci.org/hgraca/php-cache)
 [![codecov](https://codecov.io/gh/hgraca/php-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/hgraca/php-cache)
 
@@ -13,4 +13,6 @@ composer require hgraca/cache
 ```
 
 ## Todo
-- use hgraca\lock
+
+- Add `shields.io` badges
+- Make it work for big files, using streams

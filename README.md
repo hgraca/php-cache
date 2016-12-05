@@ -15,4 +15,5 @@ composer require hgraca/cache
 ## Todo
 
 - Add `shields.io` badges
+- Add a CS fixer
 - Make it work for big files, using streams

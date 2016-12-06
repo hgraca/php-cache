@@ -18,8 +18,10 @@ interface CacheInterface
 
     /**
      * @throws CacheItemNotFoundException
+     *
+     * @return mixed
      */
-    public function fetch(string $id): string;
+    public function fetch(string $id);
 
     public function contains(string $id): bool;
 

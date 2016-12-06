@@ -71,8 +71,10 @@ final class PhpFileCache implements CacheInterface
 
     /**
      * @throws CacheItemNotFoundException
+     *
+     * @return mixed
      */
-    public function fetch(string $id): string
+    public function fetch(string $id)
     {
         if (!$this->contains($id)) {
             ++$this->misses;

@@ -20,4 +20,5 @@ composer require hgraca/cache
 
 ## Todo
 
-- Make it work for big files, using streams
+- PhpFileCache
+  - Make it work for big data

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\Test\PhpFile;
 
 use Hgraca\Cache\CacheInterface;
@@ -37,7 +38,7 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
     public function testContains()
     {
         $cache = $this->setUpVolatileCache();
-        $key   = 'key';
+        $key = 'key';
         self::assertFalse($cache->contains($key));
         $cache->save($key, 'data');
         self::assertTrue($cache->contains($key));
@@ -128,11 +129,11 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
 
     public function testPackUnpack_VarExport()
     {
-        $key1  = 'key1';
+        $key1 = 'key1';
         $data1 = 'data1';
-        $key2  = 'key2';
+        $key2 = 'key2';
         $data2 = 'data2';
-        $key3  = 'key3';
+        $key3 = 'key3';
         $data3 = 'data3';
 
         $cache = $this->setUpPersistentCacheVarExportMode();
@@ -152,11 +153,11 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
 
     public function testPackUnpack_Serialize()
     {
-        $key1  = 'key1';
+        $key1 = 'key1';
         $data1 = 'data1';
-        $key2  = 'key2';
+        $key2 = 'key2';
         $data2 = 'data2';
-        $key3  = 'key3';
+        $key3 = 'key3';
         $data3 = 'data3';
 
         $cache = $this->setUpPersistentCacheSerializeMode();
@@ -179,11 +180,11 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
      */
     public function testPack_UnknownMode()
     {
-        $key1  = 'key1';
+        $key1 = 'key1';
         $data1 = 'data1';
-        $key2  = 'key2';
+        $key2 = 'key2';
         $data2 = 'data2';
-        $key3  = 'key3';
+        $key3 = 'key3';
         $data3 = 'data3';
 
         $cache = $this->setUpPersistentCacheUnknownMode();
@@ -200,11 +201,11 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
      */
     public function testUnpack_UnknownMode()
     {
-        $key1  = 'key1';
+        $key1 = 'key1';
         $data1 = 'data1';
-        $key2  = 'key2';
+        $key2 = 'key2';
         $data2 = 'data2';
-        $key3  = 'key3';
+        $key3 = 'key3';
         $data3 = 'data3';
 
         $cache = $this->setUpPersistentCacheSerializeMode();

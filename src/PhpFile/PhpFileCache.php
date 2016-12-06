@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\PhpFile;
 
 use Hgraca\Cache\CacheInterface;
@@ -9,15 +10,12 @@ use InvalidArgumentException;
 
 final class PhpFileCache implements CacheInterface
 {
-    const MODE_VAR_EXPORT = 1;
-    const MODE_SERIALIZER = 2;
-
-    const TYPE_PERSISTENT     = true;
+    const TYPE_PERSISTENT = true;
     const TYPE_NOT_PERSISTENT = false;
 
-    const KEY_LIFETIME      = 'lifetime';
+    const KEY_LIFETIME = 'lifetime';
     const KEY_CREATION_TIME = 'creationTime';
-    const KEY_DATA          = 'data';
+    const KEY_DATA = 'data';
 
     /** @var bool */
     private $contentHasChanged = false;
@@ -52,8 +50,8 @@ final class PhpFileCache implements CacheInterface
         FileSystemInterface $fileSystem = null
     ) {
         $this->cacheFilePath = $cacheFileName;
-        $this->mode          = $mode;
-        $this->persistent    = $persistent;
+        $this->mode = $mode;
+        $this->persistent = $persistent;
         $this->fileSystem = $fileSystem ?? new FileSystemAdapter();
 
         $this->cache = $this->unpack();
@@ -76,19 +74,19 @@ final class PhpFileCache implements CacheInterface
      */
     public function fetch(string $id): string
     {
-        if (! $this->contains($id)) {
-            $this->misses++;
+        if (!$this->contains($id)) {
+            ++$this->misses;
 
             throw new CacheItemNotFoundException();
         }
-        $this->hits++;
+        ++$this->hits;
 
         return $this->cache[$id][self::KEY_DATA];
     }
 
     public function contains(string $id): bool
     {
-        if (! array_key_exists($id, $this->cache)) {
+        if (!array_key_exists($id, $this->cache)) {
             return false;
         }
 
@@ -104,8 +102,8 @@ final class PhpFileCache implements CacheInterface
     public function save(string $id, $data, int $lifeTime = 0, int $creationTime = null): bool
     {
         $this->cache[$id] = [
-            self::KEY_DATA          => $data,
-            self::KEY_LIFETIME      => $lifeTime,
+            self::KEY_DATA => $data,
+            self::KEY_LIFETIME => $lifeTime,
             self::KEY_CREATION_TIME => $creationTime ?? time(),
         ];
 
@@ -125,14 +123,14 @@ final class PhpFileCache implements CacheInterface
     public function getStats(): array
     {
         return [
-            static::STATS_HITS             => $this->hits,
-            static::STATS_MISSES           => $this->misses,
-            static::STATS_UPTIME           => $this->fileSystem->fileExists($this->cacheFilePath)
+            static::STATS_HITS => $this->hits,
+            static::STATS_MISSES => $this->misses,
+            static::STATS_UPTIME => $this->fileSystem->fileExists($this->cacheFilePath)
                 ? $this->fileSystem->getFileCreationTimestamp($this->cacheFilePath) - time()
                 : 0,
-            static::STATS_MEMORY_USAGE     => memory_get_usage(),
+            static::STATS_MEMORY_USAGE => memory_get_usage(),
             static::STATS_MEMORY_AVAILABLE => ini_get('memory_limit') - memory_get_usage(),
-            static::STATS_ITEM_COUNT       => count($this->cache),
+            static::STATS_ITEM_COUNT => count($this->cache),
         ];
     }
 
@@ -143,7 +141,7 @@ final class PhpFileCache implements CacheInterface
 
     private function pack()
     {
-        if (! $this->persistent) {
+        if (!$this->persistent) {
             return null;
         }
 
@@ -164,12 +162,11 @@ final class PhpFileCache implements CacheInterface
 
     private function unpack(): array
     {
-        if (! $this->persistent || ! $this->fileSystem->fileExists($this->cacheFilePath)) {
+        if (!$this->persistent || !$this->fileSystem->fileExists($this->cacheFilePath)) {
             return [];
         }
 
         switch ($this->mode) {
-
             case self::MODE_VAR_EXPORT:
                 $array = [];
                 include $this->cacheFilePath;
@@ -177,11 +174,9 @@ final class PhpFileCache implements CacheInterface
                 return $array;
 
             case self::MODE_SERIALIZER:
-
                 return unserialize($this->fileSystem->readFile($this->cacheFilePath));
 
             default:
-
                 throw new InvalidArgumentException('Serialization mode unknown: ' . $this->mode);
         }
     }

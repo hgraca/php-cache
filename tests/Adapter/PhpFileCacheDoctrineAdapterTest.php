@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\Test\Adapter;
 
 use Hgraca\Cache\Adapter\PhpFileCacheDoctrineAdapter;
@@ -24,7 +25,7 @@ final class CacheDoctrineAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testFetch()
     {
-        $key  = 'key';
+        $key = 'key';
         $data = 'data';
 
         $this->cacheMock->shouldReceive('fetch')->once()->with($key)->andReturn($data);
@@ -34,7 +35,7 @@ final class CacheDoctrineAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testFetchThrowsException()
     {
-        $key  = 'key';
+        $key = 'key';
 
         $this->cacheMock->shouldReceive('fetch')->once()->with($key)->andThrow(CacheItemNotFoundException::class);
 
@@ -54,8 +55,8 @@ final class CacheDoctrineAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $key      = 'key';
-        $data     = 'data';
+        $key = 'key';
+        $data = 'data';
         $lifetime = 1;
 
         $this->cacheMock->shouldReceive('save')->once()->with($key, $data, $lifetime)->andReturn(true);
@@ -67,7 +68,7 @@ final class CacheDoctrineAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $key      = 'key';
+        $key = 'key';
 
         $this->cacheMock->shouldReceive('delete')->once()->with($key)->andReturn(true);
         self::assertTrue($this->adapter->delete($key));

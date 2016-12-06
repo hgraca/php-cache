@@ -1,17 +1,17 @@
 <?php
+
 namespace Hgraca\Cache\Adapter;
 
 use Doctrine\Common\Cache\Cache;
 use Hgraca\Cache\CacheInterface;
 use Hgraca\Cache\Exception\CacheItemNotFoundException;
-use Hgraca\Cache\PhpFile\PhpFileCache;
 
 final class PhpFileCacheDoctrineAdapter implements Cache
 {
-    const MODE_VAR_EXPORT = PhpFileCache::MODE_VAR_EXPORT;
-    const MODE_SERIALIZER = PhpFileCache::MODE_SERIALIZER;
+    const MODE_VAR_EXPORT = CacheInterface::MODE_VAR_EXPORT;
+    const MODE_SERIALIZER = CacheInterface::MODE_SERIALIZER;
 
-    /** @var PhpFileCache */
+    /** @var CacheInterface */
     protected $phpFileCache;
 
     public function __construct(CacheInterface $phpFileCache)
@@ -22,9 +22,9 @@ final class PhpFileCacheDoctrineAdapter implements Cache
     /**
      * Fetches an entry from the cache.
      *
-     * @param string $id The id of the cache entry to fetch.
+     * @param string $id the id of the cache entry to fetch
      *
-     * @return mixed The cached data or FALSE, if no cache entry exists for the given id.
+     * @return mixed the cached data or FALSE, if no cache entry exists for the given id
      */
     public function fetch($id)
     {
@@ -38,9 +38,9 @@ final class PhpFileCacheDoctrineAdapter implements Cache
     /**
      * Tests if an entry exists in the cache.
      *
-     * @param string $id The cache id of the entry to check for.
+     * @param string $id the cache id of the entry to check for
      *
-     * @return bool TRUE if a cache entry exists for the given cache id, FALSE otherwise.
+     * @return bool tRUE if a cache entry exists for the given cache id, FALSE otherwise
      */
     public function contains($id)
     {
@@ -52,13 +52,13 @@ final class PhpFileCacheDoctrineAdapter implements Cache
      *
      * If a cache entry with the given id already exists, its data will be replaced.
      *
-     * @param string $id       The cache id.
-     * @param mixed  $data     The cache entry/data.
+     * @param string $id       the cache id
+     * @param mixed  $data     the cache entry/data
      * @param int    $lifeTime The lifetime in number of seconds for this cache entry.
      *                         If zero (the default), the entry never expires (although it may be deleted from the cache
      *                         to make place for other entries).
      *
-     * @return bool TRUE if the entry was successfully stored in the cache, FALSE otherwise.
+     * @return bool tRUE if the entry was successfully stored in the cache, FALSE otherwise
      */
     public function save($id, $data, $lifeTime = 0)
     {
@@ -68,7 +68,7 @@ final class PhpFileCacheDoctrineAdapter implements Cache
     /**
      * Deletes a cache entry.
      *
-     * @param string $id The cache id.
+     * @param string $id the cache id
      *
      * @return bool TRUE if the cache entry was successfully deleted, FALSE otherwise.
      *              Deleting a non-existing entry is considered successful.
@@ -100,7 +100,7 @@ final class PhpFileCacheDoctrineAdapter implements Cache
      *
      * @since 2.2
      *
-     * @return array|null An associative array with server's statistics if available, NULL otherwise.
+     * @return array|null an associative array with server's statistics if available, NULL otherwise
      */
     public function getStats()
     {

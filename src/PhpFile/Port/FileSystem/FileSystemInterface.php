@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\PhpFile\Port\FileSystem;
 
 use Hgraca\Cache\PhpFile\Port\FileSystem\Exception\FileNotFoundException;

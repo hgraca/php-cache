@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\Exception;
 
 use Exception;

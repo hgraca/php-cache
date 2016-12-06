@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Cache\PhpFile\Adapter\FileSystem;
 
 use Hgraca\Cache\PhpFile\Port\FileSystem\Exception\FileNotFoundException as CacheFileNotFoundException;
@@ -24,7 +25,7 @@ final class FileSystemAdapter implements CacheFileSystemInterface
     }
 
     /**
-     * @throws LockInvalidPathException
+     * @throws CacheInvalidPathException
      */
     public function fileExists(string $path): bool
     {
@@ -43,11 +44,9 @@ final class FileSystemAdapter implements CacheFileSystemInterface
     {
         try {
             return $this->fileSystem->readFile($path);
-        }
-        catch (InvalidPathException $e) {
+        } catch (InvalidPathException $e) {
             throw new CacheInvalidPathException('', 0, $e);
-        }
-        catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException $e) {
             throw new CacheFileNotFoundException('', 0, $e);
         }
     }
@@ -60,11 +59,9 @@ final class FileSystemAdapter implements CacheFileSystemInterface
     {
         try {
             $this->fileSystem->writeFile($path, $content);
-        }
-        catch (InvalidPathException $e) {
+        } catch (InvalidPathException $e) {
             throw new CacheInvalidPathException('', 0, $e);
-        }
-        catch (PathAlreadyExistsException $e) {
+        } catch (PathAlreadyExistsException $e) {
             throw new CachePathAlreadyExistsException('', 0, $e);
         }
     }

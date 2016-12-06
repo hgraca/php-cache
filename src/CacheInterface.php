@@ -1,16 +1,20 @@
 <?php
+
 namespace Hgraca\Cache;
 
 use Hgraca\Cache\Exception\CacheItemNotFoundException;
 
 interface CacheInterface
 {
-    const STATS_HITS             = 'hits';
-    const STATS_MISSES           = 'misses';
-    const STATS_UPTIME           = 'uptime';
-    const STATS_MEMORY_USAGE     = 'memory_usage';
+    const MODE_VAR_EXPORT = 1;
+    const MODE_SERIALIZER = 2;
+
+    const STATS_HITS = 'hits';
+    const STATS_MISSES = 'misses';
+    const STATS_UPTIME = 'uptime';
+    const STATS_MEMORY_USAGE = 'memory_usage';
     const STATS_MEMORY_AVAILABLE = 'memory_available';
-    const STATS_ITEM_COUNT       = 'item_count';
+    const STATS_ITEM_COUNT = 'item_count';
 
     /**
      * @throws CacheItemNotFoundException
@@ -39,7 +43,7 @@ interface CacheInterface
      * - memory_available Memory allowed to use for storage.
      * - item_count       Number of items in the cache.
      *
-     * @return array An associative array with server's statistics.
+     * @return array an associative array with server's statistics
      */
     public function getStats(): array;
 }

@@ -19,7 +19,12 @@ interface CacheInterface
 
     public function contains(string $id): bool;
 
-    public function save(string $id, string $data, int $lifeTime = 0): bool;
+    /**
+     * @param string $id
+     * @param mixed  $data
+     * @param int    $lifeTime
+     */
+    public function save(string $id, $data, int $lifeTime = 0): bool;
 
     public function delete(string $id): bool;
 

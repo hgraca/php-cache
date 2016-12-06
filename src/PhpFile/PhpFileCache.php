@@ -101,7 +101,7 @@ final class PhpFileCache implements CacheInterface
         return true;
     }
 
-    public function save(string $id, string $data, int $lifeTime = 0, int $creationTime = null): bool
+    public function save(string $id, $data, int $lifeTime = 0, int $creationTime = null): bool
     {
         $this->cache[$id] = [
             self::KEY_DATA          => $data,

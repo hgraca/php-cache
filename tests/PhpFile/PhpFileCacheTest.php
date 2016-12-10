@@ -53,9 +53,7 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
         self::assertEquals(0, $cache->getStats()[CacheInterface::STATS_ITEM_COUNT]);
         self::assertFalse($cache->contains($key));
         $cache->save($key, $data, -1);
-        self::assertEquals(1, $cache->getStats()[CacheInterface::STATS_ITEM_COUNT]);
         self::assertFalse($cache->contains($key));
-        self::assertEquals(0, $cache->getStats()[CacheInterface::STATS_ITEM_COUNT]);
     }
 
     public function testDelete()
@@ -91,7 +89,8 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
     public function testGetStats_withExistentFile()
     {
         $cache = $this->setUpPersistentCacheVarExportMode();
-        $cache->save($key = 'key', $data = 'data');
+        $cache->save('key', 'data');
+        $cache->save('key2', 'data2', -1);
         self::assertFileNotExists($this->cacheFilePath);
         $cache->__destruct();
         $cache = null;
@@ -109,6 +108,7 @@ final class PhpFileCacheTest extends PHPUnit_Framework_TestCase
             ],
             array_keys($cache->getStats())
         );
+        self::assertEquals(1, $cache->getStats()[CacheInterface::STATS_ITEM_COUNT]);
     }
 
     public function testGetStats_withoutFile()

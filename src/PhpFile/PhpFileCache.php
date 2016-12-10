@@ -88,13 +88,7 @@ final class PhpFileCache implements CacheInterface
 
     public function contains(string $id): bool
     {
-        if (!array_key_exists($id, $this->cache)) {
-            return false;
-        }
-
-        if ($this->isStale($id)) {
-            $this->delete($id);
-
+        if (!array_key_exists($id, $this->cache) || $this->isStale($id)) {
             return false;
         }
 
@@ -116,14 +110,18 @@ final class PhpFileCache implements CacheInterface
 
     public function delete(string $id): bool
     {
-        unset($this->cache[$id]);
-        $this->contentHasChanged = true;
+        if (isset($this->cache[$id])) {
+            unset($this->cache[$id]);
+            $this->contentHasChanged = true;
+        }
 
         return true;
     }
 
     public function getStats(): array
     {
+        $this->deleteAllStale();
+
         return [
             static::STATS_HITS => $this->hits,
             static::STATS_MISSES => $this->misses,

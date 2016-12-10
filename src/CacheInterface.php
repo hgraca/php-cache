@@ -40,7 +40,7 @@ interface CacheInterface
      * The server's statistics array has the following values:
      * - hits             Number of keys that have been requested and found present.
      * - misses           Number of items that have been requested and not found.
-     * - uptime           Time that the server is running.
+     * - uptime           Time that the cache exists, in seconds.
      * - memory_usage     Memory used by this server to store items.
      * - memory_available Memory allowed to use for storage.
      * - item_count       Number of items in the cache.
